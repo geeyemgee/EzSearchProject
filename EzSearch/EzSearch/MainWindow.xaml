@@ -5,8 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EzSearch"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" 
-        Loaded="Window_Loaded">
+        Title="EzSearch" Height="450" Width="800" 
+        Loaded="Window_Loaded"
+        WindowState="Maximized"
+        SizeToContent="Manual">
     <Grid Margin="2,5,2,2">
 
         <StackPanel Orientation="Vertical">
@@ -21,7 +23,11 @@
                 </Button>
             </StackPanel>
             <DataGrid Name="SelectedFoldersGrid" Margin="0,27,0,0" Height="230">
-                
+                <DataGrid.ItemContainerStyle>
+                    <Style TargetType="DataGridRow">
+                        <EventSetter Event="MouseDoubleClick" Handler="DataGridRow_MouseDoubleClick"/>
+                    </Style>
+                </DataGrid.ItemContainerStyle>
             </DataGrid>
         </StackPanel>
         <!--<DockPanel>

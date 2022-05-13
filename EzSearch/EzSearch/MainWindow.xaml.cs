@@ -36,8 +36,9 @@ namespace EzSearch
             while(ConfLine != null)
             {
                 SearchFolders.Add(
-                    new GridRowContents(ConfLine.Split(',')[0], 
-                    Convert.ToBoolean(ConfLine.Split(',')[1])));
+                    new GridRowContents(ConfLine.Split("||,||")[0].Trim(), 
+                    Convert.ToBoolean(ConfLine.Split("||,||")[1].Trim())));
+                ConfLine = ConfFileReader.ReadLine();
             }
 
             ConfFileReader.Close();
@@ -97,7 +98,7 @@ namespace EzSearch
                     FileMode.Append,
                     FileAccess.Write);
                 StreamWriter ConfFileWriter = new StreamWriter(ConfFileStream);
-                ConfFileWriter.WriteLine(FolderNameBox.Text + " , " + Selected);
+                ConfFileWriter.WriteLine(FolderNameBox.Text + "||,||" + Selected);
 
                 ConfFileWriter.Close();
             }
@@ -145,7 +146,36 @@ namespace EzSearch
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            SelectedFoldersGrid.ItemsSource = SearchFolders;
-        } 
+            try
+            {
+                SelectedFoldersGrid.ItemsSource = SearchFolders;
+            }
+            catch
+            {
+
+            }
+            
+        }
+
+        private void DataGridRow_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            int i = SelectedFoldersGrid.SelectedIndex;
+            SearchFolders[i].Select = true;
+
+            //Note to self - Commit both the cell edit and row edit
+            //Without both commits, the edit transaction is still in progress
+            //and throws an exception when trying to call Refresh()
+            //This selection change is not made persistent because selection is only
+            //required to make in-memory changes. Storing it in a file is pointless.
+            //On the other hand, if the selected rows are deleted,
+            //then the file should be updated. This can be handled in the delete button.
+            SelectedFoldersGrid.CommitEdit();
+            SelectedFoldersGrid.CommitEdit();
+
+            SelectedFoldersGrid.Items.Refresh();
+            System.Windows.Forms.MessageBox.Show(SearchFolders[i].FolderName);
+        }
+
+        
     }
 }
