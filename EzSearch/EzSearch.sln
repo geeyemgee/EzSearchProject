@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32421.90
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EzSearch", "EzSearch\EzSearch.csproj", "{D874C8BF-AB6C-45D4-87DB-EEBF1DA7CBC6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D874C8BF-AB6C-45D4-87DB-EEBF1DA7CBC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D874C8BF-AB6C-45D4-87DB-EEBF1DA7CBC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D874C8BF-AB6C-45D4-87DB-EEBF1DA7CBC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D874C8BF-AB6C-45D4-87DB-EEBF1DA7CBC6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D33B869B-4925-4B35-AB2B-415074A98E40}
+	EndGlobalSection
+EndGlobal
