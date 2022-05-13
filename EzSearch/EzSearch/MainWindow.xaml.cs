@@ -176,6 +176,91 @@ namespace EzSearch
             System.Windows.Forms.MessageBox.Show(SearchFolders[i].FolderName);
         }
 
+        private List<string> GetRowsToDelete()
+        {
+            List<string> RowsToDelete = new List<string>();
+            foreach(var row in SearchFolders)
+            {
+                if (row.Select)
+                {
+                    RowsToDelete.Add(row.FolderName + "||,||" + false.ToString());
+                }
+            }
+            return RowsToDelete;
+        }
+
         
+
+        private void DeleteBtn_Click(object sender, RoutedEventArgs e)
+        {
+            List<string> RowsToDelete = GetRowsToDelete();
+
+            if(RowsToDelete.Count > 0)
+            {
+                DeleteRows(RowsToDelete);
+                UpdateFolderList(RowsToDelete);
+
+                SelectedFoldersGrid.Items.Refresh();
+            }
+        }
+
+        private void UpdateFolderList(List<string> rowsToDelete)
+        {
+            List<int> Indices = new List<int>();
+            foreach(var folder in SearchFolders)
+            {
+                if (folder.Select == true)
+                {
+                    Indices.Add(SearchFolders.IndexOf(folder));
+                }
+            }
+
+            foreach(int index in Indices)
+            {
+                SearchFolders.RemoveAt(index);
+            }
+        }
+
+        private void DeleteRows(List<string> RowsToDelete)
+        {
+            List<string> ConfigFileContents = new List<string>();
+            string ConfPath = Path.Combine(Directory.GetCurrentDirectory(),
+                "FolderConf.dat");
+
+            FileStream ConfFileStream = new FileStream(ConfPath,
+                FileMode.Open,
+                FileAccess.Read);
+            StreamReader ConfFileReader = new StreamReader(ConfFileStream);
+            ConfFileReader.BaseStream.Seek(0, SeekOrigin.Begin);
+
+
+            string TempConfPath = Path.Combine(Directory.GetCurrentDirectory(),
+                "FolderConf.dat.temp");
+
+            FileStream TempFileStream = new FileStream(TempConfPath,
+                FileMode.Create,
+                FileAccess.Write);
+            StreamWriter ConfFileWriter = new StreamWriter(TempFileStream);
+
+
+            string? ConfLine = ConfFileReader.ReadLine();
+            while (ConfLine != null)
+            {
+                foreach (string row in RowsToDelete)
+                {
+                    if (!ConfLine.Equals(row))
+                    {
+                        ConfFileWriter.WriteLine(ConfLine);
+                    }
+                }
+                ConfLine = ConfFileReader.ReadLine();
+            }
+
+            ConfFileReader.Close();
+            ConfFileWriter.Close();
+
+            File.Delete(ConfPath);
+            File.Move(TempConfPath, ConfPath);
+        }
     }
 }

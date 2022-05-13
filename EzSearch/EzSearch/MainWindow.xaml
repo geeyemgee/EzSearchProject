@@ -10,27 +10,28 @@
         WindowState="Maximized"
         SizeToContent="Manual">
     <Grid Margin="2,5,2,2">
-
-        <StackPanel Orientation="Vertical">
-            <StackPanel Orientation="Horizontal" Height="40" Margin="2,10,2,10">
-                <Label>Select Folder: </Label>
-                <TextBox Name="FolderNameBox" Margin="5,1,3,1" Padding="3,1,3,1" Text="Press Browse Button" Width="524" IsEnabled="False"></TextBox>
-                <Button Name="BrowseBtn" Content="Browse" Margin="5,1,3,1" Click="BrowseBtn_Click" Width="63"></Button>
-                <Button Name="AddBtn" Margin="3,0,3,1" Click="AddBtn_Click" Width="43">
-                    <TextBlock FontSize="25" FontWeight="ExtraBold">
+        <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" Height="40" Margin="2,10,2,10">
+                    <Label>Select Folder:</Label>
+                    <TextBox Name="FolderNameBox" Margin="5,1,3,1" Padding="3,1,3,1" Text="Press Browse Button" Width="524" IsEnabled="False"></TextBox>
+                    <Button Name="BrowseBtn" Content="Browse" Margin="5,1,3,1" Click="BrowseBtn_Click" Width="52"></Button>
+                    <Button Name="AddBtn" Margin="3,0,3,1" Click="AddBtn_Click" Width="43">
+                        <TextBlock FontSize="25" FontWeight="ExtraBold">
                         +
-                    </TextBlock>
-                </Button>
+                        </TextBlock>
+                    </Button>
+                    <Button Name="DeleteBtn" Content="Delete" Margin="5,1,3,1" Click="DeleteBtn_Click"  Width="52"/>
+                </StackPanel>
+                <DataGrid Name="SelectedFoldersGrid" Margin="0,27,0,0" Height="230">
+                    <DataGrid.ItemContainerStyle>
+                        <Style TargetType="DataGridRow">
+                            <EventSetter Event="MouseDoubleClick" Handler="DataGridRow_MouseDoubleClick"/>
+                        </Style>
+                    </DataGrid.ItemContainerStyle>
+                </DataGrid>
             </StackPanel>
-            <DataGrid Name="SelectedFoldersGrid" Margin="0,27,0,0" Height="230">
-                <DataGrid.ItemContainerStyle>
-                    <Style TargetType="DataGridRow">
-                        <EventSetter Event="MouseDoubleClick" Handler="DataGridRow_MouseDoubleClick"/>
-                    </Style>
-                </DataGrid.ItemContainerStyle>
-            </DataGrid>
-        </StackPanel>
-        <!--<DockPanel>
+            <!--<DockPanel>
             <Menu DockPanel.Dock="Top" Height="182" RenderTransformOrigin="0.386,-0.577" Width="802">
                 <MenuItem Header="_Options">
                     <MenuItem Header="_Add New Folder"/>
@@ -39,8 +40,9 @@
             </Menu>
             <StackPanel></StackPanel>
         </DockPanel>-->
+            <StackPanel Orientation="Vertical">
+            </StackPanel>
 
-
-
+        </StackPanel>
     </Grid>
 </Window>
